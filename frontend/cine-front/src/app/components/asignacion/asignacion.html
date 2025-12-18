@@ -1,0 +1,49 @@
+<div class="container mt-4">
+  <h2>Asignación de Películas a Salas</h2>
+
+  <form [formGroup]="asignacionForm" (ngSubmit)="guardar()" class="mb-4">
+    <div class="mb-3">
+      <label>Sala</label>
+      <select class="form-select" formControlName="salaId">
+        <option value="" disabled>Seleccione una sala</option>
+        <option *ngFor="let sala of salas" [value]="sala.id">
+          {{ sala.nombre }} {{ !sala.disponible ? "(No disponible)" : "" }}
+        </option>
+      </select>
+    </div>
+
+    <div class="mb-3">
+      <label>Película</label>
+      <select class="form-select" formControlName="peliculaId">
+        <option value="" disabled>Seleccione una película</option>
+        <option *ngFor="let pelicula of peliculas" [value]="pelicula.id">
+          {{ pelicula.nombre }}
+        </option>
+      </select>
+    </div>
+
+    <button type="submit" class="btn btn-primary">Asignar</button>
+  </form>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Sala</th>
+        <th>Película</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let asignacion of asignaciones; let i = index">
+        <td>{{ obtenerNombreSala(asignacion.salaId) }}</td>
+        <td>{{ obtenerNombrePelicula(asignacion.peliculaId) }}</td>
+        <td>
+          <button class="btn btn-sm btn-danger" (click)="eliminar(i)">
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <hr class="my-5 border-dark" />
+</div>

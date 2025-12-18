@@ -1,0 +1,69 @@
+<div class="container mt-4">
+  <h2>Gestión de Películas</h2>
+
+  <form [formGroup]="peliculaForm" (ngSubmit)="guardar()" class="mb-4">
+    <div class="mb-3">
+      <label>Nombre de la película</label>
+      <input type="text" class="form-control" formControlName="nombre" />
+      <div
+        *ngIf="
+          peliculaForm.get('nombre')?.invalid &&
+          peliculaForm.get('nombre')?.touched
+        "
+        class="text-danger"
+      >
+        Nombre requerido (mínimo 2 caracteres)
+      </div>
+    </div>
+
+    <div class="mb-3">
+      <label>Duración (minutos)</label>
+      <input type="number" class="form-control" formControlName="duracion" />
+      <div
+        *ngIf="
+          peliculaForm.get('duracion')?.invalid &&
+          peliculaForm.get('duracion')?.touched
+        "
+        class="text-danger"
+      >
+        Duración válida requerida
+      </div>
+    </div>
+
+    <button
+      type="submit"
+      class="btn btn-primary"
+      [disabled]="peliculaForm.invalid"
+    >
+      {{ editarId ? "Actualizar" : "Agregar" }}
+    </button>
+  </form>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Duración</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let pelicula of peliculas; let i = index">
+        <td>{{ pelicula.nombre }}</td>
+        <td>{{ pelicula.duracion }}</td>
+        <td>
+          <button
+            class="btn btn-sm btn-warning me-2"
+            (click)="editar(pelicula.idPelicula)"
+          >
+            Editar
+          </button>
+          <button class="btn btn-sm btn-danger" (click)="eliminar(pelicula.idPelicula)">
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+  <hr class="my-5 border-dark" />
+</div>

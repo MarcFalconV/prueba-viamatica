@@ -1,0 +1,54 @@
+<div class="container mt-4">
+  <h2>Gestión de Salas</h2>
+
+  <form [formGroup]="salaForm" (ngSubmit)="guardar()" class="mb-4">
+    <div class="mb-3">
+      <label>Nombre de la Sala</label>
+      <input type="text" class="form-control" formControlName="nombre" />
+    </div>
+
+    <div class="mb-3">
+      <label>Capacidad</label>
+      <input type="number" class="form-control" formControlName="capacidad" />
+    </div>
+
+    <div class="mb-3 form-check">
+      <input
+        type="checkbox"
+        class="form-check-input"
+        formControlName="disponible"
+      />
+      <label class="form-check-label">Disponible</label>
+    </div>
+
+    <button type="submit" class="btn btn-primary">
+      {{ editarIndex !== null ? "Actualizar" : "Agregar" }}
+    </button>
+  </form>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Nombre</th>
+        <th>Capacidad</th>
+        <th>Disponible</th>
+        <th>Acciones</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let sala of salas; let i = index">
+        <td>{{ sala.nombre }}</td>
+        <td>{{ sala.capacidad }}</td>
+        <td>{{ sala.disponible ? "Sí" : "No" }}</td>
+        <td>
+          <button class="btn btn-sm btn-warning me-2" (click)="editar(i)">
+            Editar
+          </button>
+          <button class="btn btn-sm btn-danger" (click)="eliminar(i)">
+            Eliminar
+          </button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
+</div>
